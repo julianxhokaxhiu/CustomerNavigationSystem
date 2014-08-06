@@ -8,6 +8,11 @@
 <body>
 	{% if app.items|length > 0 %}
 		<ul>
+		{% if not app.root %}
+			<li>
+				<a href="..">..</a>
+			</li>
+		{% endif %}
 		{% for item in app.items %}
 			<li>
 				{% set postfix = ('.' in item) ? '' : '/' %}
