@@ -9,7 +9,7 @@
 
 			$gotCurrent = false;
 			$first = '';
-			$files = preg_grep( '/^([^.])/', scandir( $path ) );
+			$files = $this->getFilesAndDirs( $path );
 			foreach( $files as $file ) {
 				// Catch the first item of the folder
 				if ( $first == '' )
@@ -37,6 +37,10 @@
 			$ret = array_pop( $tmp );
 
 			return $ret;
+		}
+
+		public function getFilesAndDirs($path) {
+			return preg_grep( '/^([^.Thumbs])/', scandir( $path ) );
 		}
 
 	}
