@@ -135,7 +135,7 @@
 				if ( is_dir($realPath) && file_exists($realPath) ) {
 
 					// Cycle through directories an show a list to the user
-					$dirs = array_diff( scandir( $realPath ) , array( '..', '.' ) );
+					$dirs = preg_grep( '/^([^.])/', scandir( $realPath ) );
 
 					// Render the current directory items
 					Flight::render( 'list.twig', array(

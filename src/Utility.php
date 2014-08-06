@@ -9,7 +9,7 @@
 
 			$gotCurrent = false;
 			$first = '';
-			$files = array_diff( scandir( $path ) , array( '..', '.' ) );
+			$files = preg_grep( '/^([^.])/', scandir( $path ) );
 			foreach( $files as $file ) {
 				// Catch the first item of the folder
 				if ( $first == '' )
