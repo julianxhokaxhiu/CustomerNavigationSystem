@@ -1,7 +1,7 @@
 {
 	"name": "julianxhokaxhiu/customer-navigation-system",
     "description": "A simple customer click-next image viewer",
-    "version": "1.0",
+    "version": "0.0.1",
     "type": "project",
     "keywords": [
     	"php",
