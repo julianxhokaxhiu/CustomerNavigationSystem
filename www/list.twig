@@ -6,13 +6,17 @@
 	<link href="{{ app.basePath }}/css/style.css" rel="stylesheet">
 </head>
 <body>
-	<ul>
-	{% for item in app.items %}
-		<li>
-			{% set postfix = ('.' in item) ? '' : '/' %}
-			<a href="{{ item ~ postfix }}">{{ item }}</a>
-		</li>
-	{% endfor %}
-	</ul>
+	{% if app.items|length > 0 %}
+		<ul>
+		{% for item in app.items %}
+			<li>
+				{% set postfix = ('.' in item) ? '' : '/' %}
+				<a href="{{ item ~ postfix }}">{{ item }}</a>
+			</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		Sorry, there are no images or directories to be displayed.
+	{% endif %}
 </body>
 </html>
