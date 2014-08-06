@@ -84,7 +84,7 @@
 			$twigConfig = array_merge( array(
 				'cache' => false,
 				'debug'	=>	false,
-				'auto_reload' => true
+				'auto_reload' => true,
 			), Flight::cfg()->get('twig') );
 
 			// Override the Flight view method with Twig
@@ -131,15 +131,17 @@
          */
 		private function initRoutes() {
 			Flight::route( '/*', function($route) {
-				$realPath = realpath( Flight::cfg()->get('app.realBasePath') . '/www/img/' . $route->splat );
+				$realPath = realpath( Flight::cfg()->get('app.realBasePath') . '/www/img/' . urldecode( $route->splat ) );
+
 				if ( is_dir($realPath) && file_exists($realPath) ) {
 
 					// Cycle through directories an show a list to the user
-					$dirs = preg_grep( '/^([^.])/', scandir( $realPath ) );
+					$dirs = Flight::h()->getFilesAndDirs( $realPath );
 
 					// Render the current directory items
 					Flight::render( 'list.twig', array(
 						'items' => $dirs,
+						'root' => ( $route->splat == '' )
 					));
 
 				} elseif ( is_file($realPath) && file_exists($realPath) ) {
