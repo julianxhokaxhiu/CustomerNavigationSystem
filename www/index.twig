@@ -4,10 +4,15 @@
 	<title>[{{ app.customer }}]&lt;{{ app.fileName }}&gt;</title>
 	<link href="{{ app.basePath }}/css/normalize.css" rel="stylesheet">
 	<link href="{{ app.basePath }}/css/style.css" rel="stylesheet">
+	<style>
+		#image {
+			display: block;
+			background: url( {{ app.image }} ) no-repeat center top;
+			height: {{ app.imageHeight }}px;
+		}
+	</style>
 </head>
 <body>
-	<a href="{{ app.nextUrl }}">
-		<img src="{{ app.image }}">
-	</a>
+	<a id="image" href="{{ app.nextUrl }}"></a>
 </body>
 </html>
