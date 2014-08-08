@@ -149,12 +149,15 @@
 
 					$filename = Flight::h()->getFilename( $urlPath );
 					$next = Flight::h()->fetchNext( dirname( $realPath ), $filename );
+					$imageProp = Flight::h()->getImageProperties( Flight::cfg()->get('app.realBasePath') . '/www/img/' . $route->splat );
 
 					// Render the clickable image
 					Flight::render( 'index.twig', array(
 						'fileName' => $filename,
 						'nextUrl' => dirname( $urlPath ) . '/' . $next,
 						'image' => Flight::cfg()->get('app.basePath') . '/www/img/' . $route->splat,
+						'imageWidth' => $imageProp[0],
+						'imageHeight' => $imageProp[1],
 					));
 				} else {
 					Flight::redirect('/');
