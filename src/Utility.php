@@ -17,7 +17,7 @@
 
 				// We got which was the current,
 				// so we now get the next one
-				if ( $gotCurrent == true ) {
+				if ( $gotCurrent == true && is_file( $path . '/' . $file ) ) {
 					$ret = $file;
 					$gotCurrent = false;
 				}
@@ -33,7 +33,7 @@
 		public function getFilename($path) {
 			$ret = '';
 
-			$tmp = explode('/', $path);
+			$tmp = explode('/', urldecode( $path ) );
 			$ret = array_pop( $tmp );
 
 			return $ret;
@@ -41,6 +41,10 @@
 
 		public function getFilesAndDirs($path) {
 			return preg_grep( '/^([^.Thumbs])/', scandir( $path ) );
+		}
+
+		public function getImageProperties($path) {
+			return getimagesize( urldecode( $path ) );
 		}
 
 	}
