@@ -9,8 +9,8 @@
 
 			$gotCurrent = false;
 			$first = '';
-			$files = $this->getFilesAndDirs( $path );
-			foreach( $files as $file ) {
+			$items = $this->getFilesAndDirs( $path );
+			foreach( $items['files'] as $file ) {
 				// Catch the first item of the folder
 				if ( $first == '' )
 					$first = $file;
@@ -40,7 +40,22 @@
 		}
 
 		public function getFilesAndDirs($path) {
-			return preg_grep( '/^([^.Thumbs])/', scandir( $path ) );
+			$ret = array(
+				'dirs' => array(),
+				'files' => array(),
+			);
+
+			$items = preg_grep( '/^([^.Thumbs])/', scandir( $path ) );
+			foreach( $items as $item ) {
+				$fullpath = $path . '/' . $item;
+
+				if ( is_file( $fullpath ) )
+					array_push( $ret['files'], $item );
+				else if ( is_dir( $fullpath ) )
+					array_push( $ret['dirs'], $item );
+			}
+
+			return $ret;
 		}
 
 		public function getImageProperties($path) {
