@@ -1,27 +1,42 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>[{{ app.customer }}]&lt;Listing&gt;</title>
-	<link href="{{ app.basePath }}/css/normalize.css" rel="stylesheet">
-	<link href="{{ app.basePath }}/css/style.css" rel="stylesheet">
-</head>
-<body>
+{% include '_common.twig' %}
+{% block body %}
+	<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#">{{ app.customer }}</a>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<ol class="breadcrumb">
+			<li class="active">
+				<i class="fa fa-folder-open"></i>{{ app.currentPath|default('/')|replace({ '/':' / ' }) }}
+			</li>
+		</ol>
 	{% if app.items|length > 0 %}
-		<ul>
+		<ul class="list-group">
 		{% if not app.root %}
-			<li>
-				<a href="..">..</a>
+			<li class="list-group-item">
+				<a href=".."><i class="fa fa-level-up"></i>..</a>
 			</li>
 		{% endif %}
 		{% for item in app.items %}
-			<li>
-				{% set postfix = ('.' in item) ? '' : '/' %}
-				<a href="{{ item ~ postfix }}">{{ item }}</a>
+			<li class="list-group-item">
+				{% if item.type == 'directory' %}
+					<span class="badge">{{ item.count }}</span>
+					<a href="{{ item.path }}">
+						<i class="fa fa-folder"></i>{{ item.name }}
+					</a>
+				{% else %}
+					<a href="{{ item.name }}">
+						<i class="fa fa-file"></i>{{ item.name }}
+					</a>
+				{% endif %}
 			</li>
 		{% endfor %}
 		</ul>
 	{% else %}
-		Sorry, there are no images or directories to be displayed.
+		<p>Sorry, there are no images or directories to be displayed.</p>
 	{% endif %}
-</body>
-</html>
+	</div>
+{% endblock %}

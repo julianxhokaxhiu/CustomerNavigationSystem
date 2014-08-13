@@ -1,9 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>[{{ app.customer }}]&lt;{{ app.fileName }}&gt;</title>
-	<link href="{{ app.basePath }}/css/normalize.css" rel="stylesheet">
-	<link href="{{ app.basePath }}/css/style.css" rel="stylesheet">
+{% include '_common.twig' %}
+{% block head %}
 	<style>
 		#image {
 			display: block;
@@ -11,8 +7,10 @@
 			height: {{ app.imageHeight }}px;
 		}
 	</style>
-</head>
-<body>
+{% endblock %}
+{% block body %}
 	<a id="image" href="{{ app.nextUrl }}"></a>
-</body>
-</html>
+	<a id="back" class="btn btn-default" href="{{ app.currentPath }}">
+		<i class="fa fa-arrow-left"></i><span>Go back to current directory</span>
+	</a>
+{% endblock %}
