@@ -136,12 +136,37 @@
 				if ( is_dir($realPath) && file_exists($realPath) ) {
 
 					// Cycle through directories an show a list to the user
-					$dirs = Flight::h()->getFilesAndDirs( $realPath );
+					$items = Flight::h()->getFilesAndDirs( $realPath );
+
+					// Collect meta information about files
+					$ret = array();
+					// Collect info for directories
+					foreach( $items['dirs'] as $dir ) {
+						$fullpath = $realPath . '/' . $dir;
+						$currentItemElements = Flight::h()->getFilesAndDirs( $fullpath );
+
+						array_push( $ret, array(
+							'name' => $dir,
+							'path' => $dir . '/',
+							'type' => 'directory',
+							'count' => count( $currentItemElements['files'] ),
+						));
+					}
+					// Collect info for files
+					foreach( $items['files'] as $dir ) {
+						$fullpath = $realPath . '/' . $dir;
+						array_push( $ret, array(
+							'name' => $dir,
+							'type' => 'file'
+						));
+					}
 
 					// Render the current directory items
 					Flight::render( 'list.twig', array(
-						'items' => $dirs,
-						'root' => ( $route->splat == '' )
+						'items' => $ret,
+						'currentPath' => urldecode( $route->splat ),
+						'root' => ( $route->splat == '' ),
+						'bodyClass' => 'directory',
 					));
 
 				} elseif ( is_file($realPath) && file_exists($realPath) ) {
@@ -154,10 +179,12 @@
 					// Render the clickable image
 					Flight::render( 'index.twig', array(
 						'fileName' => $filename,
+						'currentPath' => dirname( $urlPath ) . '/',
 						'nextUrl' => dirname( $urlPath ) . '/' . $next,
 						'image' => Flight::cfg()->get('app.basePath') . '/www/img/' . $route->splat,
 						'imageWidth' => $imageProp[0],
 						'imageHeight' => $imageProp[1],
+						'bodyClass' => 'image',
 					));
 				} else {
 					Flight::redirect('/');
