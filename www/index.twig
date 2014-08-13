@@ -11,6 +11,6 @@
 {% block body %}
 	<a id="image" href="{{ app.nextUrl }}"></a>
 	<a id="back" class="btn btn-default" href="{{ app.currentPath }}">
-		<i class="fa fa-arrow-left"></i><span>Go back to current directory</span>
+		<i class="fa fa-arrow-left"></i><span>{{ app.goBackLabel }}</span>
 	</a>
 {% endblock %}

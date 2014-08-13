@@ -8,6 +8,8 @@
 	$app
 	/* This is the basePath for the URLs */
 	->setConfig('app.basePath', '/CustomerNavigationSystem')
+	/* This is the label for the Go Back button */
+	->setConfig('data.goBackLabel', 'Go back to current directory')
 	/* This is the name of the customer that will be appendend in the title */
 	->setConfig('data.customer', 'My Cool Customer')
 	/* If you need to cache pages */
