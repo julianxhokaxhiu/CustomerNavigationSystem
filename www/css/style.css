@@ -7,6 +7,10 @@ body.directory {
 	padding-top: 60px;
 }
 
+body.directory .list-group-item a {
+	display: block;
+}
+
 /* Styles for single image viewing */
 body.image img {
 	width: 100%;
