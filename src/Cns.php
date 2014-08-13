@@ -149,7 +149,7 @@
 							'name' => $dir,
 							'path' => $dir . '/',
 							'type' => 'directory',
-							'count' => count( $currentItemElements['files'] ),
+							'count' => ( count( $currentItemElements['files'] ) + count( $currentItemElements['dirs'] ) ),
 						));
 					}
 					// Collect info for files
