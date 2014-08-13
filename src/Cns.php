@@ -166,6 +166,7 @@
 						'items' => $ret,
 						'currentPath' => urldecode( $route->splat ),
 						'root' => ( $route->splat == '' ),
+						'rootPath' => Flight::cfg()->get('app.basePath') . '/',
 						'bodyClass' => 'directory',
 					));
 
